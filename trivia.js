@@ -25,7 +25,7 @@ const questions = [
     },
     {
         question: "Which is the best music genre in Kenya?",
-        options: ["A) Gengetone", "B) Arbantone", "C Rhumba", "D) Millenial slop"],
+        options: ["A) Gengetone", "B) Arbantone", "C) Rhumba", "D) Millenial slop"],
         correct: "A"
     },
     {
@@ -41,16 +41,14 @@ let score = 0; //this will count the questions got right.
 function startGame() {
     console.log("Game started!!");
     askNextQuestion();
-} // this function will announce that the game has started. And then call for the next question.
+} // this function will announce that the game has started. And then call for the next question. 
 
 function askNextQuestion() {
     if (currentQuestionIndex >= questions.length) {
         endGame(); 
         return;
     }
-} // I want this function to call itself, and then check if the questions have run out upon which it should end the game
-
-const q = questions[currentQuestionIndex];  // this variable should take the current question from the array questions
+    const q = questions[currentQuestionIndex];
 
 console.log(`Question ${currentQuestionIndex + 1} of ${questions.length}`); //I want this log to show the question number and the text
 console.log(q.question); 
@@ -68,8 +66,8 @@ const timer = setTimeout(() => {
 }, 15000); //now this is the  timer, I want a 15 seconds timelimit after which time runs out and moves to the next question
 
 rl.question("Your answer (A/B/C/D): ", (userInput) => {
-    clearTimeout(timer); //Am not sure about this flow of stopping the timer
-    
+    clearTimeout(timer); 
+
 
     const answer = userInput.toUpperCase().trim();
 
@@ -83,11 +81,10 @@ rl.question("Your answer (A/B/C/D): ", (userInput) => {
     askNextQuestion();
 });
 
+} //This runs when the game function is actually inside the askNextQuestion function.
 function endGame() {
     console.log("-----GAME OVER------");
     console.log(`Your final score: ${score} out of ${questions.length}`);
-
-    const percentage = Math.round((score / questions.length) * 100);
 
     rl.close();
 }

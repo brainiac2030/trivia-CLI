@@ -11,7 +11,7 @@ const questions = [
     {
         question: "What is the capital city of Kenya?",
         options: ["A) Kisumu", "B) Mombasa", "C) Vasha", "D) Nairobi" ],
-        correct: "B"
+        correct: "D"
     },
     {
         question: "Who is the worst president in Kenya?",
@@ -35,7 +35,70 @@ const questions = [
     }
 ];
 
-let currentQuestionIndex = 0;
-let score = 0;
+let currentQuestionIndex = 0; // I want this to keep track of the question we are on.
+let score = 0; //this will count the questions got right.
+
+function startGame() {
+    console.log("Game started!!");
+    askNextQuestion();
+} // this function will announce that the game has started. And then call for the next question.
+
+function askNextQuestion() {
+    if (currentQuestionIndex >= questions.length) {
+        endGame(); 
+        return;
+    }
+} // I want this function to call itself, and then check if the questions have run out upon which it should end the game
+
+const q = questions[currentQuestionIndex];  // this variable should take the current question from the array questions
+
+console.log(`Question ${currentQuestionIndex + 1} of ${questions.length}`); //I want this log to show the question number and the text
+console.log(q.question); 
+
+q.options.forEach(option => console.log(option)); // loops through the answer choices, and prints each one
+
+console.log('You have 15 seconds....');
 
 
+
+const timer = setTimeout(() => {
+    console.log("Times's up muchacho!");
+    currentQuestionIndex++;
+    askNextQuestion();
+}, 15000); //now this is the  timer, I want a 15 seconds timelimit after which time runs out and moves to the next question
+
+rl.question("Your answer (A/B/C/D): ", (userInput) => {
+    clearTimeout(timer); //Am not sure about this flow of stopping the timer
+    
+
+    const answer = userInput.toUpperCase().trim();
+
+    if(answer === q.correct) {
+        console.log("Correct! Well done!");
+        score++;
+    } else {
+        console.log(`Wrong!! The correct answer is ${q.correct}`);
+    }
+    currentQuestionIndex++;
+    askNextQuestion();
+});
+
+function endGame() {
+    console.log("-----GAME OVER------");
+    console.log(`Your final score: ${score} out of ${questions.length}`);
+
+    const percentage = Math.round((score / questions.length) * 100);
+
+    rl.close();
+}
+
+
+console.log("Type 'start' and press Enter to begin this game...");
+rl.question('> ', (input) => {
+    if(input.toLowerCase().trim() === 'start') {
+        startGame();
+    }else {
+        console.log('See ya!');
+        rl.close();
+    }
+});

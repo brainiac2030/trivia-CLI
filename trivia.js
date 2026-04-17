@@ -35,13 +35,13 @@ const questions = [
     }
 ];
 
-let currentQuestionIndex = 0; // I want this to keep track of the question we are on.
-let score = 0; //this will count the questions got right.
+let currentQuestionIndex = 0; 
+let score = 0; 
 
 function startGame() {
     console.log("Game started!!");
     askNextQuestion();
-} // this function will announce that the game has started. And then call for the next question. 
+}  
 
 function askNextQuestion() {
     if (currentQuestionIndex >= questions.length) {
@@ -50,10 +50,10 @@ function askNextQuestion() {
     }
     const q = questions[currentQuestionIndex];
 
-console.log(`Question ${currentQuestionIndex + 1} of ${questions.length}`); //I want this log to show the question number and the text
+console.log(`Question ${currentQuestionIndex + 1} of ${questions.length}`);
 console.log(q.question); 
 
-q.options.forEach(option => console.log(option)); // loops through the answer choices, and prints each one
+q.options.forEach(option => console.log(option)); 
 
 console.log('You have 15 seconds....');
 
@@ -63,7 +63,7 @@ const timer = setTimeout(() => {
     console.log("Times's up muchacho!");
     currentQuestionIndex++;
     askNextQuestion();
-}, 15000); //now this is the  timer, I want a 15 seconds timelimit after which time runs out and moves to the next question
+}, 15000); 
 
 rl.question("Your answer (A/B/C/D): ", (userInput) => {
     clearTimeout(timer); 
@@ -81,7 +81,7 @@ rl.question("Your answer (A/B/C/D): ", (userInput) => {
     askNextQuestion();
 });
 
-} //This runs when the game function is actually inside the askNextQuestion function.
+} 
 function endGame() {
     console.log("-----GAME OVER------");
     console.log(`Your final score: ${score} out of ${questions.length}`);
